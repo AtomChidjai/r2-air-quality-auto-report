@@ -5,12 +5,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 from dotenv import load_dotenv
-import os
+import io
 
-def apiLoad():
+def apiLoad(api):
     load_dotenv()
 
-    api_key = os.environ.get('API_KEY')
+    api_key = api
     url = f'http://api.airvisual.com/v2/city?city=Ban%20Pong&state=Ratchaburi&country=Thailand&key={api_key}'
     res = req.get(url)
     load_text = json.loads(res.text)
@@ -41,4 +41,10 @@ def graph(dt):
 
     plt.savefig(f'{date_filename}.png')
 
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+
     plt.close()
+
+    buffer.seek(0)
+    return buffer.getvalue()
