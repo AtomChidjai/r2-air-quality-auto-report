@@ -1,0 +1,7 @@
+name = "r2watcher"
+main = "src/worker.js"
+workers_dev = true
+compatibility_date = "2025-06-03"
+
+[observability]
+enabled = true
