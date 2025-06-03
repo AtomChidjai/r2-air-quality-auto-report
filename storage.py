@@ -1,19 +1,12 @@
-import io
-
-upload_object = "2025_06_03_15_52_58.png"
-
-def uploadR2(r2, bucket_name):
+def uploadR2(r2, bucket_name, date_filename, image_bytes):
+    upload_object = f"{date_filename}.png"
+    
     try:
-        with open(upload_object, "rb") as f:
-            image_bytes = f.read()
-
-        r2.upload_fileobj(
-            io.BytesIO(image_bytes),
-            bucket_name,
-            upload_object,
-            ExtraArgs={
-                'ContentType': 'image/png'
-            }
+        r2.put_object(
+            Bucket=bucket_name,
+            Key=upload_object,
+            Body=image_bytes,
+            ContentType='image/png'
         )
 
         print("Success!")

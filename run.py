@@ -4,13 +4,16 @@ from dotenv import load_dotenv
 import os
 import boto3
 from botocore.client import Config
+from datetime import datetime
 
 load_dotenv()
 
 ## Graph Creation
 api_key = os.environ.get('API_KEY')
 data = apiLoad(api_key)
-graph(data)
+graph_bytes = graph(data)
+
+date_filename = datetime.today().strftime('%Y_%m_%d_%H_%M_%S')
 
 ## R2 Upload
 url = os.environ.get("S3_ENDPOINT")
@@ -26,4 +29,4 @@ s3 = boto3.client(
     region_name="apac"
 )
 
-uploadR2(s3, bucket_name)
+uploadR2(s3, bucket_name, date_filename, graph_bytes)
