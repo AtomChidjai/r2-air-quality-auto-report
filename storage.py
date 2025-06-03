@@ -1,7 +1,6 @@
 import boto3
 import os
 import io
-# import json
 from botocore.client import Config
 from dotenv import load_dotenv
 
@@ -14,7 +13,7 @@ key_id = os.environ.get("S3_KEY_ID")
 access_key = os.environ.get("S3_SECRET")
 bucket_name = os.environ.get("R2_BUCKET_NAME")
 
-upload_object = "2025_06_03_13_42_16.png"
+upload_object = "2025_06_03_15_52_58.png"
 
 s3 = boto3.client(
     service_name ="s3",
@@ -24,7 +23,7 @@ s3 = boto3.client(
     region_name="apac"
 )
 try:
-    with open("2025_06_03_13_42_16.png", "rb") as f:
+    with open(upload_object, "rb") as f:
         image_bytes = f.read()
 
     s3.upload_fileobj(
